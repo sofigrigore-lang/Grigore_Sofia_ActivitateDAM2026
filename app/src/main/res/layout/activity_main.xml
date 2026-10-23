@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="#F1F7FA">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SG - Sanatate Generala"
+        android:textSize="26sp"
+        android:textColor="#145C70"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginTop="35dp"
+        android:layout_marginBottom="30dp" />
+
+    <Button
+        android:id="@+id/btnAdauga"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Adauga pacient"
+        android:backgroundTint="#147D92" />
+
+    <Button
+        android:id="@+id/btnAdaugaAI"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Adauga pacient - AI"
+        android:backgroundTint="#2262A0"
+        android:layout_marginTop="12dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Date pacient:"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="10dp" />
+
+    <TextView
+        android:id="@+id/textRezultat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nu exista un pacient introdus."
+        android:textSize="16sp"
+        android:textColor="#273F4B" />
+
+</LinearLayout>

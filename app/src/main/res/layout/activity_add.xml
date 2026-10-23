@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SG - Adaugare pacient"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="20dp" />
+
+        <EditText
+            android:id="@+id/editNume"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nume"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/editPrenume"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Prenume"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/editVarsta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Varsta"
+            android:inputType="number" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sex"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp" />
+
+        <RadioGroup
+            android:id="@+id/radioSex"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioMasculin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Masculin" />
+
+            <RadioButton
+                android:id="@+id/radioFeminin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Feminin" />
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Data calendaristica"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp" />
+
+        <DatePicker
+            android:id="@+id/datePacient"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:calendarViewShown="false"
+            android:datePickerMode="spinner" />
+
+        <Switch
+            android:id="@+id/switchBolnav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pacient bolnav"
+            android:checked="false"
+            android:layout_marginTop="18dp" />
+
+        <CheckBox
+            android:id="@+id/checkUrgent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Caz urgent" />
+
+        <Button
+            android:id="@+id/btnSalveaza"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Salveaza pacient"
+            android:layout_marginTop="20dp" />
+
+    </LinearLayout>
+</ScrollView>

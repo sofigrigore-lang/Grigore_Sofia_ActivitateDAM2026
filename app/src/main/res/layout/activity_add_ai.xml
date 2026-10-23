@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EEF7FA"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SG | SANATATE GENERALA"
+            android:textColor="#147D92"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:gravity="center" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Inregistrare pacient"
+            android:textColor="#173F55"
+            android:textStyle="bold"
+            android:textSize="28sp"
+            android:layout_marginTop="18dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Completeaza datele pacientului."
+            android:textColor="#637E8C"
+            android:textSize="14sp"
+            android:layout_marginBottom="24dp" />
+
+        <EditText
+            android:id="@+id/aiNume"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nume"
+            android:inputType="textPersonName"
+            android:backgroundTint="#147D92"
+            android:layout_marginBottom="14dp" />
+
+        <EditText
+            android:id="@+id/aiPrenume"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Prenume"
+            android:inputType="textPersonName"
+            android:backgroundTint="#147D92"
+            android:layout_marginBottom="14dp" />
+
+        <EditText
+            android:id="@+id/aiVarsta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Varsta"
+            android:inputType="number"
+            android:backgroundTint="#147D92"
+            android:layout_marginBottom="18dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sex"
+            android:textStyle="bold"
+            android:textColor="#173F55" />
+
+        <RadioGroup
+            android:id="@+id/aiSex"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="18dp">
+
+            <RadioButton
+                android:id="@+id/aiMasculin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Masculin"
+                android:buttonTint="#147D92" />
+
+            <RadioButton
+                android:id="@+id/aiFeminin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Feminin"
+                android:buttonTint="#147D92" />
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Data calendaristica"
+            android:textStyle="bold"
+            android:textColor="#173F55"
+            android:layout_marginBottom="8dp" />
+
+        <DatePicker
+            android:id="@+id/aiData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:calendarViewShown="false"
+            android:datePickerMode="spinner"
+            android:layout_marginBottom="18dp" />
+
+        <Switch
+            android:id="@+id/aiBolnav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pacient bolnav"
+            android:textColor="#173F55"
+            android:checked="false"
+            android:layout_marginBottom="12dp" />
+
+        <CheckBox
+            android:id="@+id/aiUrgent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Caz urgent"
+            android:textColor="#A62128"
+            android:buttonTint="#C62828"
+            android:layout_marginBottom="22dp" />
+
+        <Button
+            android:id="@+id/aiSalveaza"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SALVEAZA PACIENTUL"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#147D92"
+            android:layout_marginBottom="20dp" />
+
+    </LinearLayout>
+</ScrollView>
