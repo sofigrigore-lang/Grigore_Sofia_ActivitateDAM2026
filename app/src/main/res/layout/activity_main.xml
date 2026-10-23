@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="24dp"
-    android:background="#F1F7FA">
+    android:background="#FFB6C1">
 
     <TextView
         android:layout_width="match_parent"
@@ -23,14 +23,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Adauga pacient"
-        android:backgroundTint="#147D92" />
+        android:backgroundTint="#E91E63" />
 
     <Button
         android:id="@+id/btnAdaugaAI"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Adauga pacient - AI"
-        android:backgroundTint="#2262A0"
+        android:backgroundTint="#E91E63"
         android:layout_marginTop="12dp" />
 
     <TextView
