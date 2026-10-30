@@ -35,4 +35,9 @@ public class SanatateGenerala implements Serializable {
                 "\nStatus: " + (bolnav ? "Bolnav" : "Sanatos") +
                 "\nUrgent: " + (urgent ? "Da" : "Nu");
     }
+
+    @Override
+    public String toString() {
+        return afisare();
+    }
 }
