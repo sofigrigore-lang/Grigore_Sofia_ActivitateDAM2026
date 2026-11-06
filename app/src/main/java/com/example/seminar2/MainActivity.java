@@ -13,13 +13,10 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String EXTRA_DATE = "date";
     private static final String EXTRA_PACIENT = "pacient";
     private static final String EXTRA_LISTA = "lista";
 
-    private final ArrayList<SanatateGenerala> listaObiecte =
-            new ArrayList<>();
-
+    private final ArrayList<SanatateGenerala> listaObiecte = new ArrayList<>();
     private TextView textRezultat;
 
     private final ActivityResultLauncher<Intent> launcherAdaugare =
@@ -28,20 +25,12 @@ public class MainActivity extends AppCompatActivity {
                     rezultat -> {
                         if (rezultat.getResultCode() == RESULT_OK
                                 && rezultat.getData() != null) {
-
-                            Bundle date = rezultat.getData()
-                                    .getBundleExtra(EXTRA_DATE);
-
-                            if (date != null) {
-                                SanatateGenerala pacient =
-                                        (SanatateGenerala)
-                                                date.getSerializable(EXTRA_PACIENT);
-
-                                if (pacient != null) {
-                                    listaObiecte.add(pacient);
-                                    textRezultat.setText(pacient.afisare());
-                                    deschideLista();
-                                }
+                            SanatateGenerala pacient = rezultat.getData()
+                                    .getParcelableExtra(EXTRA_PACIENT);
+                            if (pacient != null) {
+                                listaObiecte.add(pacient);
+                                textRezultat.setText(pacient.afisare());
+                                deschideLista();
                             }
                         }
                     }
@@ -53,19 +42,14 @@ public class MainActivity extends AppCompatActivity {
                     rezultat -> {
                         if (rezultat.getResultCode() == RESULT_OK
                                 && rezultat.getData() != null) {
-
-                            Bundle date = rezultat.getData()
-                                    .getBundleExtra(EXTRA_DATE);
-
-                            if (date != null) {
-                                @SuppressWarnings("unchecked")
-                                ArrayList<SanatateGenerala> listaPrimita =
-                                        (ArrayList<SanatateGenerala>)
-                                                date.getSerializable(EXTRA_LISTA);
-
-                                if (listaPrimita != null) {
-                                    listaObiecte.clear();
-                                    listaObiecte.addAll(listaPrimita);
+                            ArrayList<SanatateGenerala> listaPrimita = rezultat.getData()
+                                    .getParcelableArrayListExtra(EXTRA_LISTA);
+                            if (listaPrimita != null) {
+                                listaObiecte.clear();
+                                listaObiecte.addAll(listaPrimita);
+                                if (!listaObiecte.isEmpty()) {
+                                    textRezultat.setText(listaObiecte.get(
+                                            listaObiecte.size() - 1).afisare());
                                 }
                             }
                         }
@@ -82,33 +66,19 @@ public class MainActivity extends AppCompatActivity {
         textRezultat = findViewById(R.id.textRezultat);
 
         btnAdauga.setOnClickListener(view -> {
-            Intent intent = new Intent(
-                    MainActivity.this,
-                    AddActivity.class
-            );
+            Intent intent = new Intent(MainActivity.this, AddActivity.class);
             launcherAdaugare.launch(intent);
         });
 
         btnAdaugaAI.setOnClickListener(view -> {
-            Intent intent = new Intent(
-                    MainActivity.this,
-                    AddAIActivity.class
-            );
+            Intent intent = new Intent(MainActivity.this, AddAIActivity.class);
             launcherAdaugare.launch(intent);
         });
     }
 
     private void deschideLista() {
-        Intent intent = new Intent(
-                MainActivity.this,
-                ListActivity.class
-        );
-
-        Bundle pachet = new Bundle();
-        pachet.putSerializable(EXTRA_LISTA, listaObiecte);
-
-        intent.putExtra(EXTRA_DATE, pachet);
-
+        Intent intent = new Intent(MainActivity.this, ListActivity.class);
+        intent.putParcelableArrayListExtra(EXTRA_LISTA, listaObiecte);
         launcherLista.launch(intent);
     }
 }

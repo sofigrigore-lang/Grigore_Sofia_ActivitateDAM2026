@@ -91,11 +91,8 @@ public class AddAIActivity extends AppCompatActivity {
                             urgent.isChecked()
                     );
 
-            Bundle date = new Bundle();
-            date.putSerializable("pacient", pacient);
-
             Intent intent = new Intent();
-            intent.putExtra("date", date);
+            intent.putExtra(AddActivity.EXTRA_PACIENT, pacient);
 
             setResult(RESULT_OK, intent);
             finish();

@@ -4,109 +4,94 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
 public class ListActivity extends AppCompatActivity {
 
-    private static final String EXTRA_DATE = "date";
     private static final String EXTRA_LISTA = "lista";
+    private static final String EXTRA_PACIENT = "pacient";
 
-    private final ArrayList<SanatateGenerala> listaSanatate =
-            new ArrayList<>();
+    private final ArrayList<SanatateGenerala> listaSanatate = new ArrayList<>();
+    private CustomAdapter adaptor;
+    private int pozitieSelectata = -1;
 
-    private ArrayAdapter<SanatateGenerala> adaptor;
+    private final ActivityResultLauncher<Intent> launcherEditare =
+            registerForActivityResult(
+                    new ActivityResultContracts.StartActivityForResult(),
+                    rezultat -> {
+                        if (rezultat.getResultCode() == RESULT_OK
+                                && rezultat.getData() != null
+                                && pozitieSelectata >= 0
+                                && pozitieSelectata < listaSanatate.size()) {
+                            SanatateGenerala modificat = rezultat.getData()
+                                    .getParcelableExtra(EXTRA_PACIENT);
+                            if (modificat != null) {
+                                SanatateGenerala selectat = listaSanatate.get(pozitieSelectata);
+                                selectat.nume = modificat.nume;
+                                selectat.prenume = modificat.prenume;
+                                selectat.varsta = modificat.varsta;
+                                selectat.sex = modificat.sex;
+                                selectat.dataCalendaristica = modificat.dataCalendaristica;
+                                selectat.bolnav = modificat.bolnav;
+                                selectat.urgent = modificat.urgent;
+                                adaptor.notifyDataSetChanged();
+                            }
+                        }
+                        pozitieSelectata = -1;
+                    }
+            );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        ListView listView = findViewById(R.id.listViewGradini);
-
-        Bundle pachet = getIntent().getBundleExtra(EXTRA_DATE);
-
-        if (pachet != null) {
-            @SuppressWarnings("unchecked")
-            ArrayList<SanatateGenerala> listaPrimita =
-                    (ArrayList<SanatateGenerala>)
-                            pachet.getSerializable(EXTRA_LISTA);
-
-            if (listaPrimita != null) {
-                listaSanatate.addAll(listaPrimita);
-            }
+        ArrayList<SanatateGenerala> listaPrimita = getIntent()
+                .getParcelableArrayListExtra(EXTRA_LISTA);
+        if (listaPrimita != null) {
+            listaSanatate.addAll(listaPrimita);
         }
 
-        adaptor = new ArrayAdapter<>(
-                this,
-                android.R.layout.simple_list_item_1,
-                listaSanatate
-        );
-
+        ListView listView = findViewById(R.id.listViewGradini);
+        adaptor = new CustomAdapter(this, R.layout.elem_listview,
+                listaSanatate, getLayoutInflater());
         listView.setAdapter(adaptor);
 
-        listView.setOnItemClickListener(
-                new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(
-                            AdapterView<?> parent,
-                            View view,
-                            int position,
-                            long id) {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                pozitieSelectata = position;
+                Intent intent = new Intent(ListActivity.this, AddActivity.class);
+                intent.putExtra(AddActivity.EXTRA_EDIT, listaSanatate.get(position));
+                launcherEditare.launch(intent);
+            }
+        });
 
-                        SanatateGenerala persoana =
-                                listaSanatate.get(position);
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view,
+                                           int position, long id) {
+                listaSanatate.remove(position);
+                adaptor.notifyDataSetChanged();
+                return true;
+            }
+        });
 
-                        Toast.makeText(
-                                ListActivity.this,
-                                persoana.toString(),
-                                Toast.LENGTH_LONG
-                        ).show();
-                    }
-                }
-        );
-
-        listView.setOnItemLongClickListener(
-                new AdapterView.OnItemLongClickListener() {
-                    @Override
-                    public boolean onItemLongClick(
-                            AdapterView<?> parent,
-                            View view,
-                            int position,
-                            long id) {
-
-                        listaSanatate.remove(position);
-                        adaptor.notifyDataSetChanged();
-
-                        return true;
-                    }
-                }
-        );
-
-        getOnBackPressedDispatcher().addCallback(
-                this,
-                new OnBackPressedCallback(true) {
-                    @Override
-                    public void handleOnBackPressed() {
-                        Intent rezultat = new Intent();
-
-                        Bundle pachetRezultat = new Bundle();
-                        pachetRezultat.putSerializable(
-                                EXTRA_LISTA,
-                                listaSanatate
-                        );
-
-                        rezultat.putExtra(EXTRA_DATE, pachetRezultat);
-                        setResult(RESULT_OK, rezultat);
-                        finish();
-                    }
-                }
-        );
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                Intent rezultat = new Intent();
+                rezultat.putParcelableArrayListExtra(EXTRA_LISTA, listaSanatate);
+                setResult(RESULT_OK, rezultat);
+                finish();
+            }
+        });
     }
 }
